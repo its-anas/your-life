@@ -164,6 +164,63 @@ input:required:invalid.touched {
   margin: 0.320512821%; /* 2px/624px */
   float: left;
 }
+
+/* Decade-based coloring using nth-child selectors */
+/* 52 weeks per year, adjusting for proper decade boundaries */
+/* 0-9 years: weeks 1-522 (includes leap year buffer) */
+.weeks > li:nth-child(-n + 522) {
+  background-color: #fff;
+} /* Light red - 0-9 years */
+
+/* 10-19 years: weeks 523-1042 */
+.weeks > li:nth-child(n + 523):nth-child(-n + 1042) {
+  background-color: #fff;
+} /* Light orange - 10-19 years */
+
+/* 20-29 years: weeks 1043-1562 */
+.weeks > li:nth-child(n + 1043):nth-child(-n + 1562) {
+  background-color: #ccff99;
+} /* Light yellow - 20-29 years */
+
+/* 30-39 years: weeks 1563-2082 */
+.weeks > li:nth-child(n + 1563):nth-child(-n + 2082) {
+  background-color: #ccff99;
+} /* Light green - 30-39 years */
+
+/* 40-49 years: weeks 2083-2602 */
+.weeks > li:nth-child(n + 2083):nth-child(-n + 2602) {
+  background-color: #ccff99;
+} /* Light teal - 40-49 years */
+
+/* 50-59 years: weeks 2603-3122 */
+.weeks > li:nth-child(n + 2603):nth-child(-n + 3122) {
+  background-color: #ccff99;
+} /* Light blue - 50-59 years */
+
+/* 60-69 years: weeks 3123-3642 */
+.weeks > li:nth-child(n + 3123):nth-child(-n + 3642) {
+  background-color: #fff;
+} /* Light purple - 60-69 years */
+
+/* 70-79 years: weeks 3643-4162 */
+.weeks > li:nth-child(n + 3643):nth-child(-n + 4162) {
+  background-color: #fff;
+} /* Light pink - 70-79 years */
+
+/* 80-89 years: weeks 4163-4682 */
+.weeks > li:nth-child(n + 4163):nth-child(-n + 4682) {
+  background-color: #fff;
+} /* Gold - 80-89 years */
+
+/* 90-99 years: weeks 4683-5202 */
+.weeks > li:nth-child(n + 4683):nth-child(-n + 5202) {
+  background-color: #fff;
+} /* Silver - 90-99 years */
+
+/* 100+ years: weeks 5203+ */
+.weeks > li:nth-child(n + 5203) {
+  background-color: #fff;
+} /* Bronze - 100+ years */
 .weeks--x-label {
   color: #000;
   font-size: 1.25rem;

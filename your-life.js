@@ -38,13 +38,15 @@
   }
 
   function _handleDateChange(e) {
-
     // Save date of birth in local storage
-    localStorage.setItem("DOB", JSON.stringify({
-      month: monthEl.value,
-      year: yearEl.value,
-      day: dayEl.value
-    }));
+    localStorage.setItem(
+      'DOB',
+      JSON.stringify({
+        month: monthEl.value,
+        year: yearEl.value,
+        day: dayEl.value
+      })
+    );
 
     if (_dateIsValid()) {
       itemCount = calculateElapsedTime();
@@ -89,12 +91,12 @@
         // when the actual number of weeks per year is 52.143. Attempting to calculate weeks
         // with a diffing strategy will result in build-up over time. Instead, we'll add up
         // 52 per elapsed full year, and only diff the weeks on the current partial year.
-        var elapsedYears = (new Date(diff).getUTCFullYear() - 1970);
-        var isThisYearsBirthdayPassed = (currentDate.getTime() > new Date(currentDate.getUTCFullYear(), monthEl.value, dayEl.value).getTime());
+        var elapsedYears = new Date(diff).getUTCFullYear() - 1970;
+        var isThisYearsBirthdayPassed = currentDate.getTime() > new Date(currentDate.getUTCFullYear(), monthEl.value, dayEl.value).getTime();
         var birthdayYearOffset = isThisYearsBirthdayPassed ? 0 : 1;
         var dateOfLastBirthday = new Date(currentDate.getUTCFullYear() - birthdayYearOffset, monthEl.value, dayEl.value);
         var elapsedDaysSinceLastBirthday = Math.floor((currentDate.getTime() - dateOfLastBirthday.getTime()) / (1000 * 60 * 60 * 24));
-        var elapsedWeeks = (elapsedYears * 52) + Math.floor(elapsedDaysSinceLastBirthday / 7);
+        var elapsedWeeks = elapsedYears * 52 + Math.floor(elapsedDaysSinceLastBirthday / 7);
         elapsedTime = elapsedWeeks;
         break;
       case 'months':
@@ -116,7 +118,7 @@
         //      UTC because otherwise we'd need to offset "1970" by our timezone.
         //
         // See more details here: https://stackoverflow.com/a/24181701/1154642
-        elapsedTime = (new Date(diff).getUTCFullYear() - 1970);
+        elapsedTime = new Date(diff).getUTCFullYear() - 1970;
         break;
     }
 
@@ -134,8 +136,12 @@
   function _repaintItems(number) {
     for (var i = 0; i < items.length; i++) {
       if (i < number) {
-        items[i].style.backgroundColor = COLOR;
+        // Show the week by making it visible - CSS nth-child will handle the coloring
+        items[i].style.opacity = '1';
+        items[i].style.backgroundColor = ''; // Remove any JS-set background color to let CSS handle it
       } else {
+        // Hide future weeks
+        items[i].style.opacity = '0.1';
         items[i].style.backgroundColor = '';
       }
     }
@@ -149,15 +155,15 @@
     }
 
     if (DOB.month >= 0 && DOB.month < 12) {
-      monthEl.value = DOB.month
+      monthEl.value = DOB.month;
     }
 
     if (DOB.year) {
-      yearEl.value = DOB.year
+      yearEl.value = DOB.year;
     }
 
     if (DOB.day > 0 && DOB.day < 32) {
-      dayEl.value = DOB.day
+      dayEl.value = DOB.day;
     }
     _handleDateChange();
   }
